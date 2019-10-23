@@ -33,6 +33,10 @@ pushd tmp
   VERSION=$(yq r helm/cf/Chart.yaml version)
   API_VERSION=$(yq r helm/cf/Chart.yaml apiVersion)
 
+  if [ "$API_VERSION" == "v1" ]; then
+    API_VERSION=$(yq r helm/cf/Chart.yaml scfVersion)
+  fi
+
   if [ -z "$VERSION" ]; then
     echo "No version found from the chart"
     exit 1
